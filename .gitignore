@@ -60,6 +60,16 @@ coverage
 .eslintcache
 .stylelintcache
 .yarn-integrity
+
+# REPL and Misc
+.node_repl_history
+*.tgz
+.lock-wscript
+.tern-port
+.vscode-test
+
+# Yarn v3
+.pnp.*
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
@@ -77,13 +87,6 @@ coverage
 *.njsproj
 *.sln
 *.sw?
-
-# Miscellaneous
-.node_repl_history
-*.tgz
-.lock-wscript
-.tern-port
-.vscode-test
 
 # Vite timestamps
 vite.config.js.timestamp-*
