@@ -1,0 +1,68 @@
+.loading {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(245, 240, 235, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.loader {
+  width: 90px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 10px solid #e0b083;
+  border-bottom-color: transparent;
+  animation: spin 1.5s linear infinite;
+  box-shadow: 0 0 15px rgba(224, 176, 131, 0.4);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.smackbar {
+  border: 1.5px solid #d8a35f;
+  background-color: rgba(255, 247, 238, 0.9);
+  color: #704214;
+  padding: 0.75rem 1rem;
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  font-size: 1.1rem;
+  width: 22rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  animation: fadeSlide 0.5s ease, hide 4s ease forwards;
+}
+
+.error {
+  color: #a02b2b;
+  border-color: #d46a6a;
+  background-color: rgba(255, 230, 230, 0.9);
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hide {
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
