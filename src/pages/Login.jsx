@@ -22,18 +22,34 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
     try {
+      const apiUrl =
+        import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+      console.log("🔹 Sending login request to:", `${apiUrl}/api/auth/login`);
+      console.log("🔹 Credentials:", { email, password });
+
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/auth/login`,
-        { email, password }
+        `${apiUrl}/api/auth/login`,
+        { email, password },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
       );
+
+      console.log("✅ Server response:", res.data);
+
       if (res.data.token) {
         login(res.data);
         navigate("/");
       } else {
         setError("Login failed: Invalid response from server");
+        console.log("❌ Invalid response:", res.data);
       }
     } catch (err) {
+      console.error("💥 Login request error:", err.response || err.message);
       setError(err.response?.data?.message || "Login failed");
     }
   };
