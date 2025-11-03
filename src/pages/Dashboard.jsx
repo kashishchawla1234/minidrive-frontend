@@ -10,11 +10,13 @@ export default function Dashboard() {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   useEffect(() => {
     const fetchFiles = async () => {
       try {
         if (!user) return;
-        const res = await axios.get("http://localhost:5000/api/files/my", {
+        const res = await axios.get(`${apiUrl}/api/files/my`, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         setFiles(res.data);
@@ -23,7 +25,7 @@ export default function Dashboard() {
       }
     };
     fetchFiles();
-  }, [user]);
+  }, [user, apiUrl]);
 
   const openDeleteModal = (file) => {
     setFileToDelete(file);
@@ -33,7 +35,7 @@ export default function Dashboard() {
   const confirmDelete = async () => {
     setLoading(true);
     try {
-      await axios.delete(`http://localhost:5000/api/files/${fileToDelete._id}`, {
+      await axios.delete(`${apiUrl}/api/files/${fileToDelete._id}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       setFiles((prev) => prev.filter((f) => f._id !== fileToDelete._id));
