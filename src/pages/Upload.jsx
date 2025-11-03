@@ -11,6 +11,8 @@ export default function Upload() {
   const navigate = useNavigate();
   const [output, setOutput] = useState(null);
 
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   const handleFileChange = (e) => setFile(e.target.files[0]);
 
   const handleSubmit = async (e) => {
@@ -20,8 +22,11 @@ export default function Upload() {
     const formData = new FormData();
     formData.append("file", file);
     try {
-      const res = await axios.post("http://localhost:5000/api/files/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${user?.token}` },
+      const res = await axios.post(`${API_URL}/api/files/upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${user?.token}`,
+        },
       });
       if (res.status === 200) setOutput("success");
     } catch {
@@ -36,9 +41,15 @@ export default function Upload() {
 
   return (
     <>
-      {loading && <div className={style.loading}><div className={style.loader}></div></div>}
+      {loading && (
+        <div className={style.loading}>
+          <div className={style.loader}></div>
+        </div>
+      )}
       <div className="max-w-md mx-auto mt-10 p-8 bg-[var(--bg-card)] rounded-lg shadow border border-[var(--accent)]/40">
-        <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800">Upload a File</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800">
+          Upload a File
+        </h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <input
             type="file"
@@ -53,8 +64,12 @@ export default function Upload() {
           </button>
         </form>
       </div>
-      {output === "error" && <div className={`${style.smackbar} ${style.error}`}>Upload Failed</div>}
-      {output === "success" && <div className={`${style.smackbar}`}>Upload Success</div>}
+      {output === "error" && (
+        <div className={`${style.smackbar} ${style.error}`}>Upload Failed</div>
+      )}
+      {output === "success" && (
+        <div className={`${style.smackbar}`}>Upload Success</div>
+      )}
     </>
   );
 }
