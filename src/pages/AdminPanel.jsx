@@ -111,6 +111,14 @@ export default function AdminPanel() {
                   {file.ownerEmail || "Unknown"}
                 </span>
               </p>
+              <a
+                href={file.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#e6b17e] text-sm underline"
+              >
+                View / Download
+              </a>
             </div>
           ))}
         </div>
